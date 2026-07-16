@@ -24,21 +24,33 @@ function onResults(results) {
     canvasElement.height = videoElement.videoHeight;
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     
-    // Dibujamos el feed de la cámara de manera limpia
+    // Dibujamos la cámara centrada en el canvas
     canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
     let linea = "";
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
         const manos = [];
         for (const landmarks of results.multiHandLandmarks) {
-            // Transformamos las coordenadas a un string plano optimizado
-            const puntos = landmarks.map(lm => `${lm.x.toFixed(4)},${lm.y.toFixed(4)},${lm.z.toFixed(4)}`);
+            
+            const puntos = landmarks.map(lm => {
+                // Ajuste de coordenadas para adaptarlas a la proporción 16:9 de la PC
+                // MediaPipe entrega lm.y de 0 a 1 (alto completo de la cámara de celular 4:3)
+                // Hacemos un recorte virtual arriba y abajo para simular el formato panorámico 16:9
+                let ajustadoY = (lm.y - 0.125) / 0.75; 
+                
+                // Limitamos los valores entre 0 y 1 para evitar desbordes fuera del cuadro
+                let xFinal = Math.max(0, Math.min(1, lm.x));
+                let yFinal = Math.max(0, Math.min(1, ajustadoY));
+                
+                return `${xFinal.toFixed(4)},${yFinal.toFixed(4)},${lm.z.toFixed(4)}`;
+            });
+            
             manos.push(puntos.join(";"));
         }
         linea = manos.join("|");
     }
 
-    // Enviar coordenadas limpias por internet a la PC mediante WebSocket
+    // Enviar las coordenadas adaptadas por WebSocket
     if (socket.readyState === WebSocket.OPEN) {
         socket.send(linea);
     }

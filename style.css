@@ -17,12 +17,14 @@ body {
 
 /* El canvas que renderiza el espejo del feed de cámara */
 #output {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
+    width: 90vw;            /* Ocupa el 90% del ancho de la pantalla del móvil */
+    max-width: 640px;       /* Límite de ancho para que no se pixelee */
+    aspect-ratio: 16 / 9;   /* Fuerza la proporción idéntica a la de una laptop/PC */
+    object-fit: cover;      /* Recorta los excesos de la cámara del móvil para rellenar el rectángulo */
+    border: 3px solid #3182ce; /* Borde azul para que visualices el límite del área de juego */
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    transform: scaleX(-1); /* Efecto espejo */
+    transform: scaleX(-1);  /* Efecto espejo */
     background-color: #1a1a1a;
 }
 

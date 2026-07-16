@@ -1,0 +1,42 @@
+/* Estilos para el diseño de la interfaz de la Cámara Remota */
+body {
+    margin: 0;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* El elemento de video original se mantiene oculto */
+#webcam {
+    display: none;
+}
+
+/* El canvas que renderiza el espejo del feed de cámara */
+#output {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transform: scaleX(-1); /* Efecto espejo */
+    background-color: #1a1a1a;
+}
+
+/* Estado de la conexión en pantalla */
+#status {
+    position: absolute;
+    top: 16px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 8px 16px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease;
+}

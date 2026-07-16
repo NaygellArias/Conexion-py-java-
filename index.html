@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captura de Mano</title>
+    
+    <!-- Archivo CSS Separado -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Librerías de MediaPipe -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  
+    <!-- Elementos del flujo de captura de video -->
+    <video id="webcam" playsinline></video>
+    <canvas id="output"></canvas>
+    <div id="status">Conectando...</div>
+
+    <!-- Archivo JavaScript Separado -->
+    <script src="script.js"></script>
+</body>
+</html>
